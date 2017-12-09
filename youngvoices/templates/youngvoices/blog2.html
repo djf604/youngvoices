@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,14 +13,15 @@
     <title>Stories</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
+    <link href="{% static 'css/modern-business.css' %}" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link href="css/custom5.css" rel="stylesheet">
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+     <link href="{% static 'css/custom5.css' %}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,26 +45,31 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index_ana.html">Home</a>
+                <a class="navbar-brand" href="/">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="about_mia.html">About Us</a>
+                        <a href="/about-us">About Us</a>
                     </li>
                     <li>
-                        <a href="services_sofia.html">Safe Spaces</a>
+                        <a href="/safe-spaces">Safe Spaces</a>
                     </li>
                     <li>
-                        <a href="message1.html">Message Box</a>
+                        <a href="/message-box">Message Box</a>
                     </li>
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href="/quiz">Take a Quiz!</a>
+                    </li>
+                    {% endif %}
                     
                     <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Our Voices <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li class="active">
-                                <a href="blog2.html">Stories</a>
+                                <a href="/our-stories">Stories</a>
                             </li>
                             <li>
                                 
@@ -71,19 +78,23 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign Up <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                
-                            <li>
-                                <a href="signup2.html">Register with Young Voices</a>
-                            </li>
-                            <li>
-                               
-                            </li>
-                        </ul>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <p style="color:white;margin-top:12px">Welcome, {{ user.username }}
+                    <a href="/logout">Logout</a></p>
                     </li>
+                    {% else %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign Up / Sign In<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <a href="/register">Register With Young Voices</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -141,7 +152,7 @@
                     <a href="#">Violence </a>
                 </h2>
                 <p class="lead">
-                    by <a href="index.php">Anonymous</a>
+                    by <a href="#">Anonymous</a>
                 </p>
                 <p><i class="fa fa-clock-o"></i> Active</p>
                 <hr>
@@ -166,7 +177,7 @@
                     <a href="#">Family</a>
                 </h2>
                 <p class="lead">
-                    by <a href="index.php">Anonymous</a>
+                    by <a href="#">Anonymous</a>
                 </p>
                 <p><i class="fa fa-clock-o"></i> Active</p>
                 <hr>
@@ -194,7 +205,7 @@
                     <a href="#">Abuse</a>
                 </h2>
                 <p class="lead">
-                    by <a href="index.php">Anonymous</a>
+                    by <a href="#">Anonymous</a>
                 </p>
                 <p><i class="fa fa-clock-o"></i> Active</p>
                 <hr>
@@ -276,10 +287,10 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script>
 function comments1() {
     {

@@ -1,0 +1,167 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Young Voices</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/modern-business.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+     <link href="{% static 'css/custom1.css' %}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Home</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/about-us">About Us</a>
+                    </li>
+                    <li>
+                        <a href="/safe-spaces">Safe Spaces</a>
+                    </li>
+                    <li>
+                        <a href="/message-box">Message Box</a>
+                    </li>
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href="/quiz">Take a Quiz!</a>
+                    </li>
+                    {% endif %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Our Voices<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/our-stories">Stories</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <p style="color:white;margin-top:12px">Welcome, {{ user.username }}
+                    <a href="/logout">Logout</a></p>
+                    </li>
+                    {% else %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign Up / Sign In<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <a href="/register">Register With Young Voices</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="message">Young Voices
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Home</a>
+                    </li>
+                    <li class="signup">Quiz</li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+        {% if user.is_authenticated %}
+        <div class="row">
+            <h1>Hello {{ user.username }}!</h1>
+            <h3>Your total score is: {{ user.profile.total_score }}</h3>
+            <h3>You've taken {{ user.profile.num_quizes_taken }} quizzes</h3>
+        </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col-md-8">
+
+                            <h3>Name of the Quiz</h3>
+                            <form name="sentMessage" id="contactForm" method="post" action="/quiz/">
+                                {% csrf_token %}
+                                <!-------------------------------------->
+                                <!-- Put form elements beginning here -->
+                                <!-------------------------------------->
+                                What is the best color?<br/>
+                                <input type="radio" name="example" value="blue">Blue<br/>
+                                <input type="radio" name="example" value="red">Red<br/>
+                                <input type="radio" name="example" value="green">Green<br/><br/>
+
+                                What is the best pet?<br/>
+                                <input type="radio" name="example2" value="dog">Dog<br/>
+                                <input type="radio" name="example2" value="cat">Cat<br/>
+                                <input type="radio" name="example2" value="bird">Bird<br/><br/>
+
+                                <!-------------------------------->
+                                <!-- Stop putting form elements -->
+                                <!-------------------------------->
+                                <button style="margin-top:25px" type="submit" class="btn btn-primary">Submit Answers</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,10 +1,10 @@
 def quiz():
     # Collect answers from the quiz page
-    example = field('example')
-    example2 = field('example2')
+    example = field("example")
+    example2 = field("example2")
 
     # Check to see if answers are correct
-    if example == 'blue':
+    if example == "blue":
         add_score(15)
 
 
